@@ -559,9 +559,6 @@ See [Undo commit on the current branch](./gitlens.md#undo-a-commit-on-the-curren
 - Method 2: [Switch to a new branch using the `VS Code Terminal`](#switch-to-a-new-branch-using-the-vs-code-terminal)
 - Method 3: [Switch to a new branch using `GitLens`](#switch-to-a-new-branch-using-gitlens)
 
-> [!IMPORTANT]
-> Replace the `<branch>` with the actual branch name.
-
 ### Switch to a new branch using `GitHub`
 
 1. [Go to the repo](./github.md#go-to-your-fork).
