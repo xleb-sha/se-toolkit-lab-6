@@ -129,8 +129,8 @@ def query_api(method: str, path: str, body: str = None) -> str:
         JSON string with status_code and body
     """
     try:
-        # Load LMS API key from .env.docker.secret
-        # Note: We need to load both .env files
+        # Get LMS API key from environment (already loaded or injected by autochecker)
+        # Only load from file if not already set
         load_dotenv('.env.docker.secret', override=False)
 
         lms_api_key = os.getenv('LMS_API_KEY')
@@ -323,8 +323,9 @@ def execute_tool_call(tool_call, project_root: Path) -> str:
 
 
 def main():
-    # Load environment variables from both files
-    load_dotenv('.env.agent.secret')
+    # Load environment variables from files only if not already set
+    # This allows the autochecker to inject its own values
+    load_dotenv('.env.agent.secret', override=False)
     # LMS_API_KEY will be loaded from .env.docker.secret by query_api when needed
 
     # Check command line arguments
@@ -341,7 +342,7 @@ def main():
     model = os.getenv('LLM_MODEL')
 
     if not all([api_key, api_base, model]):
-        print("Error: Missing required environment variables in .env.agent.secret", file=sys.stderr)
+        print("Error: Missing required environment variables (LLM_API_KEY, LLM_API_BASE, LLM_MODEL)", file=sys.stderr)
         sys.exit(1)
 
     try:
