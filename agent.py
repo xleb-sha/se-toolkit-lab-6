@@ -150,9 +150,10 @@ def query_api(method: str, path: str, body: str = None) -> str:
             full_url = f"{api_base_url}{path}"
 
         # Prepare request
+        # Backend uses Bearer token authentication (see backend/app/auth.py)
         headers = {
             "Content-Type": "application/json",
-            "X-API-Key": lms_api_key
+            "Authorization": f"Bearer {lms_api_key}"
         }
 
         data = None
