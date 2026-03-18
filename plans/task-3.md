@@ -110,12 +110,15 @@ Note: `source` is now **optional** — system questions may not have a wiki sour
 
 ## Initial Benchmark Score
 
-**Status:** Backend not running locally. Need to start Docker containers first.
+**Status:** Backend running locally on port 42001.
 
 To run the benchmark:
 1. Start the backend: `docker compose up -d`
 2. Ensure `.env.docker.secret` has `LMS_API_KEY=1234`
-3. Run: `uv run run_eval.py`
+3. Set `AGENT_API_BASE_URL=http://localhost:42001` in `.env`
+4. Run: `uv run run_eval.py`
+
+**First Run Result:** Cannot test without valid LLM API key. The agent code is syntactically correct and `query_api` tool works when tested directly.
 
 ## Iteration Strategy
 
