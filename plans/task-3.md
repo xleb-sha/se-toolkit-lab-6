@@ -134,8 +134,24 @@ When tests fail:
 
 ## Lessons Learned
 
-(To be filled after completing the task)
+1. **Authentication matters:** The backend uses Bearer token authentication (`Authorization: Bearer <key>`), not `X-API-Key` header. Had to check `backend/app/auth.py` to understand the correct scheme.
+
+2. **Docker networking:** Caddy reverse proxy needs containers on the same Docker network. Direct API access via `localhost:42001` works for local testing.
+
+3. **Environment variable separation:** `LMS_API_KEY` (backend auth) and `LLM_API_KEY` (LLM provider) are completely different keys from different files. Easy to confuse them.
+
+4. **Tool descriptions are critical:** The LLM relies on clear tool descriptions to choose the right tool. Vague descriptions lead to wrong tool choices.
+
+5. **Default URL:** The default `AGENT_API_BASE_URL` should be `http://localhost:42002` (Caddy), but direct access via port 42001 (app) works better for local testing.
 
 ## Final Eval Score
 
-(To be filled after passing the benchmark)
+**Status:** Cannot run full benchmark without valid LLM API key.
+
+Local testing confirms:
+- `query_api` tool works correctly (tested directly)
+- Authentication with Bearer token works
+- All environment variables are read from config files
+- Agent syntax is valid (py_compile passes)
+
+To complete: Need valid `LLM_API_KEY` in `.env.agent.secret` to run `uv run run_eval.py`.
